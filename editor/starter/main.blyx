@@ -1,0 +1,18 @@
+use vendor::hoopoe::hoopoe;
+
+fn main() {
+    let width = 400.0;
+    let height = 200.0;
+    let box_w = 100.0;
+    let box_h = 100.0;
+    let channels = 3.0;
+    let align = 4.0;
+    let memory = 14000.0;
+    let result = hoopoe_thumbnail(width, height, box_w, box_h, channels, align, memory);
+    if len(result) == 0 { println!("invalid"); return; }
+    let mut i = 0;
+    while i < len(result) {
+        println!(at(result, i));
+        i += 1;
+    }
+}

@@ -1,0 +1,57 @@
+{
+  "name": "blyx-hoopoe",
+  "displayName": "Blyx Hoopoe",
+  "description": "Plan a thumbnail and check the decoded pixel buffer against a byte budget.",
+  "version": "0.1.0",
+  "publisher": "RahulChaube",
+  "license": "(MIT OR Apache-2.0)",
+  "icon": "logo.png",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Snippets"
+  ],
+  "keywords": [
+    "blyx",
+    "hoopoe",
+    "framework"
+  ],
+  "homepage": "https://www.blyx-lang.space/packages/hoopoe",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Rahulchaube1/blyx-hoopoe.git",
+    "directory": "editor"
+  },
+  "bugs": {
+    "url": "https://github.com/Rahulchaube1/blyx-hoopoe/issues"
+  },
+  "extensionDependencies": [
+    "RahulChaube.blyx-language"
+  ],
+  "contributes": {
+    "snippets": [
+      {
+        "language": "blyx",
+        "path": "./snippets/framework.json"
+      }
+    ],
+    "walkthroughs": [
+      {
+        "id": "hoopoe.start",
+        "title": "Get started with Hoopoe",
+        "description": "Plan a thumbnail and check the decoded pixel buffer against a byte budget.",
+        "steps": [
+          {
+            "id": "run",
+            "title": "Run the Hoopoe example",
+            "description": "Create an empty .blyx file, insert blyx-hoopoe-demo and choose **Blyx: Run File**.\n[Open the documentation](https://www.blyx-lang.space/packages/hoopoe)",
+            "media": {
+              "markdown": "walkthrough.md"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
