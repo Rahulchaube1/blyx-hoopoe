@@ -1,0 +1,45 @@
+use aspectfit;
+use rasterbytes;
+
+fn hoopoe_finite(values: vector) -> bool {
+    let mut i = 0;
+    while i < len(values) {
+        let value = at(values, i);
+        if !(value - value == 0.0) {
+            return false;
+        }
+        i += 1;
+    }
+    true
+}
+
+fn hoopoe_compute(width: f64, height: f64, box_w: f64, box_h: f64, channels: f64, align: f64, memory: f64) -> vector {
+    let fit = aspectfit_contain(width, height, box_w, box_h, 0.0);
+    if len(fit) == 0 {
+        return [];
+    }
+    let cost = rasterbytes_storage(at(fit, 0), at(fit, 1), channels, align);
+    if len(cost) == 0 {
+        return [];
+    }
+    let mut ok = 0;
+    if at(cost, 2) <= memory {
+        ok = 1;
+    }
+    [at(fit, 0), at(fit, 1), at(cost, 1), at(cost, 2), ok]
+}
+
+// Plan a thumbnail and check the decoded pixel buffer against a byte budget.
+// Returns [output width, output height, aligned stride, bytes, fits budget]. Includes one output buffer with one byte per channel. Decoder and encoder overhead are outside this estimate.
+pub fn hoopoe_thumbnail(width: f64, height: f64, box_w: f64, box_h: f64, channels: f64, align: f64, memory: f64) -> vector {
+    if !(width >= 1.0 && width <= 9007199254740991.0 && width % 1.0 == 0.0) { return []; }
+    if !(height >= 1.0 && height <= 9007199254740991.0 && height % 1.0 == 0.0) { return []; }
+    if !(box_w >= 1.0 && box_w <= 9007199254740991.0 && box_w % 1.0 == 0.0) { return []; }
+    if !(box_h >= 1.0 && box_h <= 9007199254740991.0 && box_h % 1.0 == 0.0) { return []; }
+    if !(channels >= 1.0 && channels <= 9007199254740991.0 && channels % 1.0 == 0.0) { return []; }
+    if !(align >= 1.0 && align <= 9007199254740991.0 && align % 1.0 == 0.0) { return []; }
+    if !(memory >= 0.0 && memory <= 9007199254740991.0 && memory % 1.0 == 0.0) { return []; }
+    let result = hoopoe_compute(width, height, box_w, box_h, channels, align, memory);
+    if !hoopoe_finite(result) { return []; }
+    result
+}
